@@ -1,0 +1,3 @@
+Чтобы создать ветку напиши:git branch username 
+Чтобы переключить ветку напиши: git checkout username
+чтобы отправить ветку на сервер напиши:git push --set-upstream origin Tol2
