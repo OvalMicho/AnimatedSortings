@@ -10,34 +10,21 @@ GPIO.setup(dac,GPIO.OUT)
 def decimal2binary(value):
     return [int(element) for element in bin(value)[2:].zfill(8)]
 
-def ifnumber(a):
-    try:
-        num = int(a)
-    else:
-        return num
-    except Exception:
-        print("Вы ввели не число!")
-        return 0
-    finally:
-        
-
 def work():
     try:
         while True: 
             word = input()
             if word == 'q':
-                GPIO.output(dac,0) 
-                GPIO.cleanup()
                 break
-            number = ifnumber(word)
-            list = decimal2binary(number)
-            GPIO.output(dac, list)
-            v = 0
-            for i in range (0, len(list)):
-                if list[i] == 1:
-                    v += a/8
-            v = round(v, 2)
-            print("Предполагаемое напряжение на выходе:", v, "В")
+            if word.isdigit() and int(word)<=255:
+                number = int(word)
+                list = decimal2binary(number)
+                GPIO.output(dac, list)
+                v = number / 256 * 3.3
+                v = round(v, 2)
+                print("Предполагаемое напряжение на выходе:", v, "В")
+            else:
+                print("Вы ввели число не того формата, введите положительное целое число от 0 до 255:")
     finally: 
         GPIO.output(dac,0) 
         GPIO.cleanup() 
